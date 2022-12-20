@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -49,6 +50,8 @@ public class Foto {
 	@ManyToMany( cascade = CascadeType.DETACH)
 	private List<Categoria> categorie;
 	
+	@OneToMany(mappedBy = "foto")
+	private List<Commento> commenti;
 	
 	public Foto() { }
 	
