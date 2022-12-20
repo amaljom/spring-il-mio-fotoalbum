@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<a th:href="@{/foto/create}">Aggiungi una foto</a>
+	<table>
+	  <thead>
+	    <tr>
+	      <th scope="col">titolo</th>
+	      <th scope="col">descrizione</th>
+	      <th scope="col">url</th>
+	      <th scope="col">tag</th>
+	      <th scope="col">visibile</th>
+	    </tr>
+	  </thead>
+	  
+	  <tbody>
+	    <tr th:each="foto : ${fotos}"
+			th:object="${foto}">
+	      <td>[[*{titolo}]]</td>
+	      <td> [[*{descrizione}]]</td>
+	      <td>[[*{url}]]</td>
+	      <td>[[*{visibile}]]</td>
+	      <td><a class="btn btn-danger" th:href="@{/foto/delete/{id} (id=*{id})}"> DELETE </a></td>
+		  <td><a class="btn btn-success" th:href="@{/foto/update/{id} (id=*{id})}"> EDIT </a></td>
+	    </tr>
+	  </tbody>
+  </table>
+  
+</body>
+</html>
