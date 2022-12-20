@@ -1,12 +1,18 @@
 package org.generation.italy.demo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.generation.italy.demo.pojo.Categoria;
 import org.generation.italy.demo.pojo.Foto;
+import org.generation.italy.demo.pojo.Role;
+import org.generation.italy.demo.pojo.User;
 import org.generation.italy.demo.service.CategoriaService;
 import org.generation.italy.demo.service.FotoService;
+import org.generation.italy.demo.service.RoleService;
+import org.generation.italy.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +26,12 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 	
 	@Autowired
 	private FotoService fotoServ;
+	
+	@Autowired
+	private RoleService roleService;
+	
+	@Autowired
+	private UserService userService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringIlMioFotoalbumApplication.class, args);
@@ -57,6 +69,16 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		fotoServ.save(f2);
 		fotoServ.save(f3);
 		
+		
+
+		
+		Role adminRole = new Role("ADMIN");
+		
+		roleService.save(adminRole);
+	
+		User adminUser = new User("admin", "{noop}password2", adminRole);
+		
+		userService.save(adminUser);
 		
 	}
 
