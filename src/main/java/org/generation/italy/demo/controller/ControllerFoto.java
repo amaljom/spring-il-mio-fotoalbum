@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
@@ -31,10 +32,14 @@ public class ControllerFoto {
 	private CategoriaService categServ;
 	
 	@GetMapping()
-	public String getFoto(Model model) {
+	public String getFoto(Model model, @RequestParam(name = "q", required = false) String query ) {
 		
-		List<Foto> fotos = fotoServ.findAll();
+		List<Foto> fotos = query == null 
+				? fotoServ.findAll()
+				: fotoServ.findByName(query); 
+
 		model.addAttribute("fotos", fotos);
+		model.addAttribute("query", query);
 		
 		return "foto-index";
 	}
@@ -110,4 +115,5 @@ public class ControllerFoto {
 		
 		return "redirect:/foto";
 	}
+	
 }

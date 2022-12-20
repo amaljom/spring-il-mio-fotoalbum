@@ -24,7 +24,10 @@ public class FotoService {
 		
 		return fotoRepo.findAll();
 	}
-	
+	public List<Foto> findByName(String titolo) {
+		
+		return fotoRepo.findByTitoloContainingOrTagContainingIgnoreCase(titolo, titolo);
+	}
 	public Optional<Foto> findPhotoById(int id) {
 		
 		return fotoRepo.findById(id);
