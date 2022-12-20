@@ -32,6 +32,21 @@
 	    <label class="form-label">NO</label>
 	    <input type="radio" class="form-control" name="visibile" value="0"  th:field="*{visibile}">
 	  </div>
+	  
+	  <div 
+			th:each="categoria : ${categorie}"
+			th:object="${categoria}"
+	  >
+		
+		<input 
+			type="checkbox" 
+			name="categoria" 
+			th:value="*{id}" 
+			th:field="${foto.categorie}"
+		>
+  		<label>[[*{nome}]]</label>
+			
+	  </div>
 		<button type="submit" value="update">Submit</button>
 	</form>
 </body>

@@ -23,11 +23,11 @@ public class CategoriaService {
 		return cateRepo.findAll();
 	}
 	
-	public Optional<Categoria> getIngredientById(int id) {
+	public Optional<Categoria> getCategoryById(int id) {
 		return cateRepo.findById(id);
 	}
 
-	public void deleteIngredieteById(int id) {
+	public void deleteCategoriaById(int id) {
 		cateRepo.deleteById(id);
 	}
 }

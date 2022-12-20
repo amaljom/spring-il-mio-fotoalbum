@@ -3,6 +3,7 @@ package org.generation.italy.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.generation.italy.demo.pojo.Categoria;
 import org.generation.italy.demo.pojo.Foto;
 import org.generation.italy.demo.service.CategoriaService;
 import org.generation.italy.demo.service.FotoService;
@@ -26,8 +27,11 @@ public class ControllerFoto {
 	@Autowired
 	private FotoService fotoServ;
 	
+	@Autowired
+	private CategoriaService categServ;
+	
 	@GetMapping()
-	public String getPize(Model model) {
+	public String getFoto(Model model) {
 		
 		List<Foto> fotos = fotoServ.findAll();
 		model.addAttribute("fotos", fotos);
@@ -36,17 +40,14 @@ public class ControllerFoto {
 	}
 	
 	@GetMapping("/create")
-	public String createPizza(Model model) {
+	public String createFoto(Model model) {
 
 		Foto foto = new Foto();
 		model.addAttribute("foto", foto);
-		/*
-		List<Promozione> promozione = promoService.findAll();
-		model.addAttribute("promozione", promozione);
 		
-		List<Ingrediente> ingredienti = ingredienteService.findAll();
-		model.addAttribute("ingredienti", ingredienti);
-		*/
+		List<Categoria> categorie = categServ.findAll();
+		model.addAttribute("categorie", categorie);
+		
 		return "foto-create";
 	}
 	
@@ -72,6 +73,8 @@ public class ControllerFoto {
 		Optional<Foto> chosenFoto = fotoServ.findPhotoById(id);
 		Foto foto = chosenFoto.get();
 		
+		List<Categoria> categorie = categServ.findAll();
+		model.addAttribute("categorie", categorie);
 		/*
 		List<Promozione> promozione = promoService.findAll();
 		model.addAttribute("promozione", promozione);
@@ -83,7 +86,7 @@ public class ControllerFoto {
 		return "foto-edit";
 	}
 	@PostMapping("/update")
-	public String updatePizza(@Valid Foto foto,
+	public String updateFoto(@Valid Foto foto,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
 		if (bindingResult.hasErrors()) {
@@ -98,7 +101,7 @@ public class ControllerFoto {
 	}
 	// Delete
 	@GetMapping("/delete/{id}")
-	public String deletePizza(@PathVariable("id") int id) {
+	public String deleteFoto(@PathVariable("id") int id) {
 		
 		Optional<Foto> chosenFoto = fotoServ.findPhotoById(id);
 		Foto foto = chosenFoto.get();

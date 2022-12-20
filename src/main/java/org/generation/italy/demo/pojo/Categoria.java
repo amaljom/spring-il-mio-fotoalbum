@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,13 +26,18 @@ public class Categoria {
 	@NotEmpty(message = "Dai un titolo")
 	@Column(length = 128)
 	private String nome;
-	/*
-	@ManyToMany(mappedBy = "categorie")
+	
+	@ManyToMany(mappedBy = "categorie", cascade = CascadeType.DETACH)
 	private List<Foto> foto;
-	*/
+	
+	
 	public Categoria() { }
 	public Categoria(String nome) {
 		setNome(nome);
+	}
+	public Categoria(String nome, List<Foto> foto) {
+		setNome(nome);
+		setFoto(foto);
 	}
 	//id
 	public int getId() {
@@ -46,6 +52,13 @@ public class Categoria {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	//foto
+	public List<Foto> getFoto() {
+		return foto;
+	}
+	public void setFoto(List<Foto> foto) {
+		this.foto = foto;
 	}
 	
 	@Override

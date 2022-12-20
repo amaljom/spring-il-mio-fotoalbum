@@ -2,6 +2,7 @@ package org.generation.italy.demo.pojo;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,21 +45,13 @@ public class Foto {
 	
 	@Column(length = 100)
 	private boolean visibile;
-	/*
-	@ManyToMany()
+	
+	@ManyToMany( cascade = CascadeType.DETACH)
 	private List<Categoria> categorie;
-	*/
+	
 	
 	public Foto() { }
 	
-	public Foto(String titolo, String descrizione, String url, String tag, boolean visibile) {
-		setTitolo(titolo);
-		setDescrizione(descrizione);
-		setUrl(url);
-		setTag(tag);
-		setVisibile(visibile);
-	}
-	/*
 	public Foto(String titolo, String descrizione, String url, String tag, boolean visibile, List<Categoria> categorie) {
 		setTitolo(titolo);
 		setDescrizione(descrizione);
@@ -67,7 +60,16 @@ public class Foto {
 		setVisibile(visibile);
 		setCategorie(categorie);
 	}
-	*/
+	
+	public Foto(String titolo, String descrizione, String url, String tag, boolean visibile, Categoria categorie) {
+		setTitolo(titolo);
+		setDescrizione(descrizione);
+		setUrl(url);
+		setTag(tag);
+		setVisibile(visibile);
+		addCategoria(categorie);
+	}
+	
 	// id
 	public int getId() {
 		return id;
@@ -110,7 +112,6 @@ public class Foto {
 	public void setVisibile(boolean visibile) {
 		this.visibile = visibile;
 	}
-	/*
 	//catogorie
 	public List<Categoria> getCategorie() {
 		return categorie;
@@ -118,7 +119,17 @@ public class Foto {
 	public void setCategorie(List<Categoria> categorie) {
 		this.categorie = categorie;
 	}
-	*/
+	public void addCategoria(Categoria categoria) {
+		
+		boolean finded = false;
+		for (Categoria i : getCategorie()) 
+			if (i.getId() == categoria.getId())
+				finded = true;
+		
+		if (!finded) 
+			getCategorie().add(categoria);
+	}
+
 	@Override
 	public String toString() {
 		return (getId()) + getTitolo(); 

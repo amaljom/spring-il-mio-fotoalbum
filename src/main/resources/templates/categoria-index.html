@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<a th:href="@{/categoria/create}">Aggiungi una foto</a>
+	<table>
+	  <thead>
+	    <tr>
+	      <th scope="col">nome</th>
+	    </tr>
+	  </thead>
+	  
+	  <tbody>
+	    <tr th:each="categoria : ${categorie}"
+			th:object="${categoria}">
+	      <td>[[*{nome}]]</td>
+	      <td><a class="btn btn-danger" th:href="@{/categoria/delete/{id} (id=*{id})}"> DELETE </a></td>
+		  <td><a class="btn btn-success" th:href="@{/categoria/update/{id} (id=*{id})}"> EDIT </a></td>
+	    </tr>
+	  </tbody>
+  </table>
+</body>
+</html>
