@@ -1,5 +1,7 @@
 package org.generation.italy.demo.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +26,7 @@ public class Commento {
 	private String commento;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Foto foto;
 	
 	public Commento() { }
@@ -53,6 +56,11 @@ public class Commento {
 	}
 	public void setFoto(Foto foto) {
 		this.foto = foto;
+	}
+	
+	@Override
+	public String toString() {
+		return getCommento();
 	}
 	
 	

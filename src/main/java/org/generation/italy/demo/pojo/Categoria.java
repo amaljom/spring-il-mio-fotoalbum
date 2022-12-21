@@ -28,6 +28,7 @@ public class Categoria {
 	private String nome;
 	
 	@ManyToMany(mappedBy = "categorie", cascade = CascadeType.DETACH)
+	@JsonIgnore
 	private List<Foto> foto;
 	
 	

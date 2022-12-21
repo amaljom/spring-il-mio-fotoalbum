@@ -17,8 +17,9 @@ public class CommentoService {
 	@Autowired
 	private CommentoRepository commentoRepository;
 	
-	public void save(Commento commento) {
-		commentoRepository.save(commento);
+	public Commento save(Commento commento) {
+		
+		return commentoRepository.save(commento);
 	}
 	
 	public List<Commento> findAll() {
@@ -32,18 +33,6 @@ public class CommentoService {
 	public void deletePromotionById(int id) {
 		commentoRepository.deleteById(id);
 	}
-	/*
-	@Transactional
-	public List<Commento> findPizze() {
-		
-		List<Promozione> promos = promoRepo.findAll();
-		
-		for (Promozione promo : promos) {
-			
-			Hibernate.initialize(promo.getPizzas());
-		}
-		
-		return promos;
-	}
-	*/
+	
+	
 }
