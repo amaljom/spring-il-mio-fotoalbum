@@ -30,6 +30,10 @@ public class Commento {
 	public Commento(String commento) { 
 		setCommento(commento);
 	}
+	public Commento(String commento, Foto foto) { 
+		setCommento(commento);
+		setFoto(foto);
+	}
 	
 	public int getId() {
 		return id;
@@ -44,5 +48,12 @@ public class Commento {
 	public void setCommento(String commento) {
 		this.commento = commento;
 	}
+	public Foto getFoto() {
+		return foto;
+	}
+	public void setFoto(Foto foto) {
+		this.foto = foto;
+	}
+	
 	
 }

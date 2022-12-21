@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.generation.italy.demo.pojo.Categoria;
+import org.generation.italy.demo.pojo.Commento;
 import org.generation.italy.demo.pojo.Foto;
 import org.generation.italy.demo.pojo.Role;
 import org.generation.italy.demo.pojo.User;
 import org.generation.italy.demo.service.CategoriaService;
+import org.generation.italy.demo.service.CommentoService;
 import org.generation.italy.demo.service.FotoService;
 import org.generation.italy.demo.service.RoleService;
 import org.generation.italy.demo.service.UserService;
@@ -33,13 +35,16 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private CommentoService commentServ;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringIlMioFotoalbumApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-	
+		
 		Categoria c1 = new Categoria("natura");
 		Categoria c2 = new Categoria("arte");
 		Categoria c3 = new Categoria("gaming");
@@ -68,7 +73,12 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		fotoServ.save(f1);
 		fotoServ.save(f2);
 		fotoServ.save(f3);
-
+		
+		Commento cm1 = new Commento("Bellissimo!", f2);
+		Commento cm2 = new Commento("Come editi le foto?!", f1);
+		
+		commentServ.save(cm2);
+		commentServ.save(cm1);
 		
 		Role adminRole = new Role("ADMIN");
 		

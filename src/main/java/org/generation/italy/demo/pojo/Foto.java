@@ -50,7 +50,7 @@ public class Foto {
 	@ManyToMany( cascade = CascadeType.DETACH)
 	private List<Categoria> categorie;
 	
-	@OneToMany(mappedBy = "foto")
+	@OneToMany(mappedBy = "foto",  cascade = CascadeType.REMOVE)
 	private List<Commento> commenti;
 	
 	public Foto() { }
@@ -131,6 +131,14 @@ public class Foto {
 		
 		if (!finded) 
 			getCategorie().add(categoria);
+	}
+	
+	public List<Commento> getCommenti() {
+		return commenti;
+	}
+
+	public void setCommenti(List<Commento> commenti) {
+		this.commenti = commenti;
 	}
 
 	@Override
