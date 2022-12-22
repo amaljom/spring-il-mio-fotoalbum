@@ -19,6 +19,7 @@ public class SecurityConf {
 		
 		http.csrf().disable().authorizeHttpRequests()
 				.requestMatchers("/foto").hasAuthority("ADMIN")
+				.requestMatchers("/categoria").hasAuthority("ADMIN")
 				.requestMatchers("/*/update/**").hasAuthority("ADMIN")
 				.requestMatchers("/*/create", "/*/delete/**").hasAuthority("ADMIN")
 				.requestMatchers("/**").permitAll()

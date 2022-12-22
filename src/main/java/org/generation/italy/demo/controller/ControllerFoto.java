@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.generation.italy.demo.pojo.Categoria;
+import org.generation.italy.demo.pojo.Commento;
 import org.generation.italy.demo.pojo.Foto;
 import org.generation.italy.demo.service.CategoriaService;
+import org.generation.italy.demo.service.CommentoService;
 import org.generation.italy.demo.service.FotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ public class ControllerFoto {
 	
 	@Autowired
 	private CategoriaService categServ;
+
 	
 	@GetMapping()
 	public String getFoto(Model model, @RequestParam(name = "q", required = false) String query ) {
@@ -65,7 +68,7 @@ public class ControllerFoto {
 			
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 			
-			return "redirect:/";
+			return "redirect:/foto/create";
 		}
 		fotoServ.save(foto);
 		
@@ -80,13 +83,8 @@ public class ControllerFoto {
 		
 		List<Categoria> categorie = categServ.findAll();
 		model.addAttribute("categorie", categorie);
-		/*
-		List<Promozione> promozione = promoService.findAll();
-		model.addAttribute("promozione", promozione);
 		
-		List<Ingrediente> ingredienti = ingredienteService.findAll();
-		model.addAttribute("ingredienti", ingredienti);
-		*/
+		
 		model.addAttribute("foto", foto);
 		return "foto-edit";
 	}
@@ -98,7 +96,7 @@ public class ControllerFoto {
 			
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 			
-			return "redirect:/pizza/update/" + foto.getId();
+			return "redirect:/foto/update/" + foto.getId();
 		}
 		
 		fotoServ.save(foto);		
@@ -114,6 +112,20 @@ public class ControllerFoto {
 		fotoServ.delete(foto);
 		
 		return "redirect:/foto";
+	}
+	
+	@GetMapping("/show/{id}")
+	public String showFoto(@PathVariable("id") int id, Model model) {
+		
+		Optional<Foto> chosenFoto = fotoServ.findPhotoById(id);
+		Foto foto = chosenFoto.get();
+		
+		List<Commento> commenti = foto.getCommenti();
+		
+		model.addAttribute("foto", foto);
+		model.addAttribute("commenti", commenti);
+		
+		return "foto-show";
 	}
 	
 }

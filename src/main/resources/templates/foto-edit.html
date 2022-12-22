@@ -3,17 +3,26 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>
 </head>
 <body>
-	<h2>Modifica la foto</h2>
+	<h2 class="text-center mt-2">Modifica la foto</h2>
+	<div th:if="${errors}" class="w-75 mx-auto">
+		<h2 class="text-center mt-2">ERRORI</h2>
+		<div class="alert alert-danger" role="alert" th:each = "error : ${errors}" th:object = "${error}">
+		  [[*{defaultMessage}]]
+		</div>
+	</div>
 	<form 
 		method="POST" 
 		th:action="@{/foto/update}" 
 		th:object="${foto}"
+		class="w-75 mx-auto"
+		
 	>
 		<input type="text" name="id" th:field="*{id}" style="display:none">
 		
-		<div class="mb-3">
+		<div>
 	    <label class="form-label">titolo</label>
 	    <input type="text" class="form-control" name="nome" th:field="*{titolo}">
 	    
@@ -23,14 +32,14 @@
 	    <label class="form-label">url</label>
 	    <input type="text" class="form-control" name="url" th:field="*{url}">
 	    
-	    <label class="form-label">titolo</label>
+	    <label class="form-label">tag</label>
 	    <input type="text" class="form-control" name="tag" th:field="*{tag}">
 	   	
 	   	<label class="form-label">SI</label>
-	    <input type="radio" class="form-control" name="visibile" value="1"  th:field="*{visibile}">
+	    <input type="radio" name="visibile" value="1"  th:field="*{visibile}">
 	    
 	    <label class="form-label">NO</label>
-	    <input type="radio" class="form-control" name="visibile" value="0"  th:field="*{visibile}">
+	    <input type="radio" name="visibile" value="0"  th:field="*{visibile}">
 	  </div>
 	  
 	  <div 
@@ -47,7 +56,7 @@
   		<label>[[*{nome}]]</label>
 			
 	  </div>
-		<button type="submit" value="update">Submit</button>
+		<button type="submit" class="btn btn-primary" value="update">Submit</button>
 	</form>
 </body>
 </html>

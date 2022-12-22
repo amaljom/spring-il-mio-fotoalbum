@@ -28,12 +28,13 @@ public class Foto {
 	private int id;
 	
 	@NotNull
-	@NotEmpty(message = "Dai un titolo")
+	@NotEmpty(message = "aggiungi un titolo")
 	@Column(length = 128)
 	private String titolo;
 	
 	@NotNull
 	@NotEmpty(message = "aggiungi una descrizione")
+	@Size(min = 5, message="la descrizione deve essere minimo 5 caratteri di lunghezza")
 	@Lob
 	private String descrizione;
 	
@@ -42,7 +43,7 @@ public class Foto {
 	@Column(length = 300)
 	private String url;
 	
-	@NotEmpty(message = "Dai un titolo")
+	@NotEmpty(message = "aggiungi un tag")
 	@Column(length = 100)
 	private String tag;
 	

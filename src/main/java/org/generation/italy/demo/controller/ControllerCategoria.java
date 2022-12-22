@@ -44,8 +44,6 @@ public class ControllerCategoria {
 		Categoria categoria = new Categoria();
 		model.addAttribute("categoria", categoria);
 		
-		List<Foto> fotos = fotoServ.findAll();
-		model.addAttribute("fotos", fotos);
 		
 		return "categoria-create";
 	}
@@ -58,7 +56,7 @@ public class ControllerCategoria {
 			
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 			
-			return "redirect:/";
+			return "redirect:/categoria/create";
 		}
 		List<Foto> fotos = categoria.getFoto();
 		for (Foto foto : fotos)
@@ -71,9 +69,6 @@ public class ControllerCategoria {
 	// Edit and Update
 		@GetMapping("/update/{id}")
 		public String editCategorie(@PathVariable("id") int id, Model model) {
-			
-			List<Foto> fotos = fotoServ.findAll();
-			model.addAttribute("fotos", fotos);
 			
 			Optional<Categoria> chosenCategoria = categserv.getCategoryById(id);
 			Categoria categoria = chosenCategoria.get();
@@ -91,6 +86,7 @@ public class ControllerCategoria {
 				
 				return "redirect:/categoria/update/" + categoria.getId();
 			}
+			
 			Optional<Categoria> oldIng = categserv.getCategoryById(categoria.getId());
 			Categoria categoria2 = oldIng.get();
 			
@@ -103,6 +99,7 @@ public class ControllerCategoria {
 			categserv.save(categoria);		
 			return "redirect:/categoria";
 		}
+		
 		@GetMapping("/delete/{id}")
 		public String deleteCategorie(@PathVariable("id") int id) {
 			

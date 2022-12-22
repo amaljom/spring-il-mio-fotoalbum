@@ -87,6 +87,8 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		
 		commentServ.save(cm2);
 		commentServ.save(cm1);
+		commentServ.save(cm3);
+		commentServ.save(cm4);
 		
 		Role adminRole = new Role("ADMIN");
 		

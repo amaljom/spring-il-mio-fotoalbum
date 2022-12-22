@@ -6,7 +6,12 @@
 <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>
 </head>
 <body>
-	<a th:href="@{/foto/create}">Aggiungi una foto</a>
+	<div class="border w-75 mx-auto py-5 rounded-3 bg-dark">
+		<div class="d-flex mx-auto justify-content-center">
+			<a class="btn btn-primary mx-2" href="/categoria"> Categorie </a>
+			<a class="btn btn-primary mx-2" th:href="@{/foto/create}">Aggiungi una pizza</a>
+		</div>
+	</div>
 	<form class="w-75 mx-auto">
 	  <div class="mb-3">
 	    <input type="text" class="form-control"  name="q" th:value="${query}" placeholder="cerca per titolo o tag">
@@ -15,7 +20,7 @@
 	   	<button type="submit" class="btn btn-primary" value="SEARCH">Submit</button>
 	  </div>
 	</form>
-	<table>
+	<table class="table mx-auto table-dark table-striped mt-4 w-75">
 	  <thead>
 	    <tr>
 	      <th scope="col">titolo</th>
@@ -23,6 +28,9 @@
 	      <th scope="col">url</th>
 	      <th scope="col">tag</th>
 	      <th scope="col">visibile</th>
+	      <th scope="col">Delete</th>
+	      <th scope="col">Edit</th>
+	      <th scope="col">show</th>
 	    </tr>
 	  </thead>
 	  
@@ -32,9 +40,11 @@
 	      <td>[[*{titolo}]]</td>
 	      <td> [[*{descrizione}]]</td>
 	      <td>[[*{url}]]</td>
+	      <td>[[*{tag}]]</td>
 	      <td>[[*{visibile}]]</td>
 	      <td><a class="btn btn-danger" th:href="@{/foto/delete/{id} (id=*{id})}"> DELETE </a></td>
 		  <td><a class="btn btn-success" th:href="@{/foto/update/{id} (id=*{id})}"> EDIT </a></td>
+		  <td><a class="btn btn-success" th:href="@{/foto/show/{id} (id=*{id})}"> SHOW </a></td>
 	    </tr>
 	  </tbody>
   </table>

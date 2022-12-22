@@ -28,7 +28,7 @@ public class ControllerFotoApi {
 	@GetMapping("/all/{q}")
 	public List<Foto> getAllByName( @PathVariable("q") String q) {
 		
-		List<Foto> pizze = fotoServ.findByName(q);
+		List<Foto> pizze = fotoServ.findByName(q.toLowerCase());
 		return pizze;
 	}
 }

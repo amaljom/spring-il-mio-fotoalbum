@@ -39,7 +39,11 @@
                 <div class="d-flex flex-column w-50 text-white position-relative">
                         <h1>{{ focus.titolo }}</h1>
                         <i class="fa-solid fa-x exit"  @click="colseFocus()"></i>
-                  
+                        <div class="d-flex justify-content-around flex-wrap m-2">
+                            <div v-for="categoria in focus.categorie" :key="categoria.id" class="p-2 bg-success  rounded-3 " >
+                                {{ categoria.nome }}
+                            </div>
+                        </div>
                     <ul class="list-group scroll">
                         <li href="#" class="list-group-item disabled" aria-current="true">
                             commenti
@@ -47,7 +51,7 @@
                         <li href="#" class="list-group-item" v-for="commento in focus.commenti"
                             :key="commento.id">{{ commento.commento }}</li>
                     </ul>
-                    <div class="input-group w-75 mx-auto mt-2">
+                    <div class="input-group w-75 mx-auto mt-2 p-1">
                         <input type="text" placeholder="Scrivi un commento" class="form-control" v-model="new_commento">
                         <button @click="createComment(focus.id)" class="btn btn-outline-secondary" type="button" >commenta</button>
                     </div>
@@ -55,19 +59,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="d-flex justify-content-center">
-        <div class="card" style="width: 18rem;"
-            v-for="photo in photos"
-            :key="photo.id"
-        >
-            <img :src="photo.url" class="card-img-top" >
-            <div class="card-body">
-                
-                
-
-            </div>
-        </div>
-    </div> -->
 
   </div>
 </template>
@@ -91,18 +82,16 @@ export default {
 
     methods: {
         createComment(id){
-            console.log(this.new_commento, id)
             axios.post(API_URL + '/commento/create/' + id + '/' + this.new_commento)
             .then(res => {
         
             const commento = res.data;
 
             if (!commento) return;
-
+            this.focus.commenti.unshift(commento)
             this.getAllPhotos();
             });
             this.new_commento="";
-            this.colseFocus();
         },
 
         search(){
@@ -134,12 +123,20 @@ export default {
             }
            
         },
-
+    
         showFotoDetails(id){
             this.fotoDetails = true;
             this.NoFotoDetails = false;
-            this.focus = this.photos[id-1]
+            for(let i = 0; i < this.photos.length; i++) {
+
+                const photo = this.photos[i];
+
+                if(photo.id == id) {
+                    this.focus = photo;
+                }
+            }
         },
+
         colseFocus(){
             this.fotoDetails = false;
             this.NoFotoDetails = true;
@@ -203,7 +200,7 @@ export default {
     object-fit: cover;
 }
 .scroll{
-    height: 75%;
+    height: 70%;
     overflow-y: auto;
 }
 .box-father{
