@@ -117,9 +117,7 @@ export default {
                     const photos = res.data;
                     if (photos == null) return;
                     this.photos = photos;
-                    
                 });
-                this.new_search="";
             }
            
         },

@@ -26,8 +26,6 @@ public class ControllerCategoria {
 	
 	@Autowired
 	private CategoriaService categserv;
-	@Autowired
-	private FotoService fotoServ;
 	
 	@GetMapping()
 	public String getCategorie(Model model) {
@@ -58,9 +56,7 @@ public class ControllerCategoria {
 			
 			return "redirect:/categoria/create";
 		}
-		List<Foto> fotos = categoria.getFoto();
-		for (Foto foto : fotos)
-			foto.getCategorie().add(categoria);
+
 		categserv.save(categoria);
 		
 		return "redirect:/categoria";
@@ -86,16 +82,7 @@ public class ControllerCategoria {
 				
 				return "redirect:/categoria/update/" + categoria.getId();
 			}
-			
-			Optional<Categoria> oldIng = categserv.getCategoryById(categoria.getId());
-			Categoria categoria2 = oldIng.get();
-			
-			for (Foto foto : categoria2.getFoto()) 
-				foto.getCategorie().remove(categoria);
-			
-			for (Foto foto : categoria.getFoto())			
-				foto.getCategorie().add(categoria);
-			
+		
 			categserv.save(categoria);		
 			return "redirect:/categoria";
 		}
