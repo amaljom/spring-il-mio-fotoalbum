@@ -139,6 +139,7 @@ export default {
             this.fotoDetails = false;
             this.NoFotoDetails = true;
             this.focus = {}
+            this.new_commento = "";
         },
     },
 

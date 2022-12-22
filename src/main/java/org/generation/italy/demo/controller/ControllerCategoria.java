@@ -56,7 +56,7 @@ public class ControllerCategoria {
 			
 			return "redirect:/categoria/create";
 		}
-
+		
 		categserv.save(categoria);
 		
 		return "redirect:/categoria";
@@ -82,7 +82,7 @@ public class ControllerCategoria {
 				
 				return "redirect:/categoria/update/" + categoria.getId();
 			}
-		
+			
 			categserv.save(categoria);		
 			return "redirect:/categoria";
 		}
